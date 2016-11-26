@@ -1,7 +1,9 @@
-FROM centos:7.1.1503
+FROM debian:jessie
 
-MAINTAINER knarfeh@outlook.com
-
-RUN yum -y install java-1.8.0-openjdk-devel-1:1.8.0.65-2.b17.el7_1.x86_64 
-
-RUN yum clean all 
+RUN echo deb http://httpredir.debian.org/debian \
+jessie-backports main \
+> /etc/apt/sources.list.d/jessie-backports.list
+RUN apt-get update
+RUN apt-get --no-install-recommends \
+install -y openjdk-8-jre-headless
+RUN rm -rfv /var/lib/apt/lists/*
